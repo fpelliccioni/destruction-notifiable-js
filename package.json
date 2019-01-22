@@ -1,0 +1,62 @@
+{
+  "name": "destruction-notifiable",
+  "version": "0.0.2",
+  "description": "NodeJS destruction notifiable types (N-API)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fpelliccioni/destruction-notifiable-js.git"
+  },
+  "keywords": [
+    "disposable",
+    "destructible",
+    "javascript",
+    "nodejs",
+    "destructor",
+    "GC",
+    "resources",
+    "free",
+    "disposal"
+  ],
+  "author": "Fernando Pelliccioni <fpelliccioni@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fpelliccioni/destruction-notifiable-js/issues"
+  },
+  "homepage": "https://github.com/fpelliccioni/destruction-notifiable-js#readme",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "main": "index.js",
+  "files": [
+    "src/*",
+    "test/*",
+    "binding.gyp",
+    "index.js",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "binary": {
+    "module_name": "destruction_notifiable",
+    "module_path": "./lib/binding/{configuration}/{node_abi}-{platform}-{arch}/",
+    "package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz",
+    "host": "https://github.com/fpelliccioni/destruction-notifiable-js/releases/download/",
+    "remote_path": "{version}"
+  },
+  "dependencies": {
+    "nan": "^2.12.0",
+    "node-pre-gyp": "0.12.x",
+    "bindings": "~1.2.1"
+  },
+  "bundledDependencies": [
+    "node-pre-gyp"
+  ],
+  "devDependencies": {
+    "aws-sdk": "2.x"
+  },
+  "scripts": {
+    "install": "node-pre-gyp install --fallback-to-build",
+    "test": "node index.js",
+    "prepublish": "npm ls"
+  }
+}

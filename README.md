@@ -1,2 +1,2 @@
-# destructible-js
-NodeJS destructible type (N-API)
+# destruction-notifiable-js
+NodeJS destruction notifiable types (N-API)

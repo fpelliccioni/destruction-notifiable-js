@@ -1,0 +1,14 @@
+{
+  "name": "destruction-notifiable-tester",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tests.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "destruction-notifiable": "^0.0.2"
+  }
+}
