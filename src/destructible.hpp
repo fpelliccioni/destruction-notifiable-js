@@ -1,5 +1,5 @@
-#ifndef TEST_ADDONS_NAPI_6_OBJECT_WRAP_DESTRUCTIBLE_H_
-#define TEST_ADDONS_NAPI_6_OBJECT_WRAP_DESTRUCTIBLE_H_
+#ifndef DESTRUCTION_NOTIFIABLE_DESTRUCTIBLE_HPP_
+#define DESTRUCTION_NOTIFIABLE_DESTRUCTIBLE_HPP_
 
 #include <node_api.h>
 
@@ -26,7 +26,6 @@ private:
     static 
     napi_value DoCall(napi_env env, napi_callback_info info);
 
-
     static 
     napi_ref constructor;
     
@@ -34,8 +33,6 @@ private:
     napi_env env_;
     napi_ref wrapper_;
     napi_ref func_;
-
-    napi_value jsthis_;
 };
 
-#endif  // TEST_ADDONS_NAPI_6_OBJECT_WRAP_DESTRUCTIBLE_H_
+#endif  // DESTRUCTION_NOTIFIABLE_DESTRUCTIBLE_HPP_
