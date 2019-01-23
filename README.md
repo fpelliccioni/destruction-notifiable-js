@@ -1,6 +1,6 @@
 # destruction-notifiable-js
 
-NodeJS destruction notifiable types (N-API).
+Node.js destruction notifiable types (N-API).
 
 
 ## Usage:

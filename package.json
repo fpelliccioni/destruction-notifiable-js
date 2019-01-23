@@ -1,7 +1,7 @@
 {
   "name": "destruction-notifiable",
   "version": "0.0.2",
-  "description": "NodeJS destruction notifiable types (N-API)",
+  "description": "Node.js destruction notifiable types (N-API)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fpelliccioni/destruction-notifiable-js.git"
