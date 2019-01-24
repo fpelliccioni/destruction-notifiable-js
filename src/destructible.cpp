@@ -15,8 +15,6 @@ napi_value RunCallback(napi_env env, napi_value cb, uint32_t id) {
     status = napi_get_global(env, &global);
     assert(status == napi_ok);
 
-    // printf("global: %p\n", global);
-
     napi_value result;
     status = napi_call_function(env, global, cb, 1, argv, &result);
     assert(status == napi_ok);
@@ -51,7 +49,6 @@ napi_value Destructible::Init(napi_env env, napi_value exports) {
     napi_property_descriptor properties[] = {
         { "id", 0, 0, GetId, nullptr, 0, napi_default, 0 }
       , DECLARE_NAPI_METHOD("doCall", DoCall)
-    //   , DECLARE_NAPI_METHOD("multiply", Multiply)
     };
 
     napi_value cons;
@@ -66,33 +63,6 @@ napi_value Destructible::Init(napi_env env, napi_value exports) {
     return exports;
 }
 
-
-// napi_value RunCallback(napi_env env, const napi_callback_info info) {
-//   napi_status status;
-
-//   size_t argc = 1;
-//   napi_value args[1];
-//   status = napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
-//   assert(status == napi_ok);
-
-//   napi_value cb = args[0];
-
-//   napi_value argv[1];
-//   status = napi_create_string_utf8(env, "hello world", NAPI_AUTO_LENGTH, argv);
-//   assert(status == napi_ok);
-
-//   napi_value global;
-//   status = napi_get_global(env, &global);
-//   assert(status == napi_ok);
-
-//   napi_value result;
-//   status = napi_call_function(env, global, cb, 1, argv, &result);
-//   assert(status == napi_ok);
-
-//   return nullptr;
-// }
-
-
 napi_value Destructible::New(napi_env env, napi_callback_info info) {
 
     napi_value target;
@@ -106,9 +76,6 @@ napi_value Destructible::New(napi_env env, napi_callback_info info) {
         napi_value args[2];
         napi_value jsthis;
         status = napi_get_cb_info(env, info, &argc, args, &jsthis, nullptr);
-        // printf("jsthis: %p\n", jsthis);
-
-        // printf("argc: %d\n", argc);
 
         assert(status == napi_ok);
 
@@ -119,43 +86,17 @@ napi_value Destructible::New(napi_env env, napi_callback_info info) {
         assert(status == napi_ok);
 
         if (valuetype != napi_undefined) {
-            // status = napi_get_value_double(env, args[0], &id);
             status = napi_get_value_uint32(env, args[0], &id);
             assert(status == napi_ok);
         }
 
         napi_value cb = args[1];
-        // printf("cb_: %p\n", cb);
-
-        // // --------------------------------------------------------------------------------
-        // napi_value cb = args[1];
-        // // RunCallback(env, cb);
-        // napi_value argv[1];
-        // status = napi_create_string_utf8(env, "hello world", NAPI_AUTO_LENGTH, argv);
-        // assert(status == napi_ok);
-
-        // napi_value global;
-        // status = napi_get_global(env, &global);
-        // assert(status == napi_ok);
-
-        // napi_value result;
-        // status = napi_call_function(env, global, cb, 1, argv, &result);
-        // assert(status == napi_ok);
-        // // --------------------------------------------------------------------------------
 
         Destructible* obj = new Destructible(id);
-
         obj->env_ = env;
+
         status = napi_create_reference(env, cb, 1, &obj->func_);
         assert(status == napi_ok);
-
-
-        // napi_ref jsthis_;
-        // status = napi_create_reference(env, jsthis, 1, &jsthis_);
-        // assert(status == napi_ok);
-
-
-
 
         status = napi_wrap(env,
                         jsthis,
@@ -164,8 +105,6 @@ napi_value Destructible::New(napi_env env, napi_callback_info info) {
                         nullptr,  // finalize_hint
                         &obj->wrapper_);
         assert(status == napi_ok);
-
-        // RunCallback3(env, cb);
 
         return jsthis;
     } else {
@@ -196,8 +135,6 @@ napi_value Destructible::GetId(napi_env env, napi_callback_info info) {
     napi_value jsthis;
     status = napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr);
     assert(status == napi_ok);
-    // printf("GetId jsthis: %p\n", jsthis);
-
 
     Destructible* obj;
     status = napi_unwrap(env, jsthis, reinterpret_cast<void**>(&obj));
@@ -216,7 +153,6 @@ napi_value Destructible::DoCall(napi_env env, napi_callback_info info) {
     napi_value jsthis;
     status = napi_get_cb_info(env, info, nullptr, nullptr, &jsthis, nullptr);
     assert(status == napi_ok);
-    // printf("DoCall   jsthis: %p\n", jsthis);
 
     Destructible* obj;
     status = napi_unwrap(env, jsthis, reinterpret_cast<void**>(&obj));
@@ -226,28 +162,6 @@ napi_value Destructible::DoCall(napi_env env, napi_callback_info info) {
     status = napi_get_reference_value(env, obj->func_, &func);
     assert(status == napi_ok);
     RunCallback(env, func, obj->id_);
-    // obj->jsthis_ = jsthis;
 
     return nullptr;
 }
-
-
-// napi_value Destructible::SetValue(napi_env env, napi_callback_info info) {
-//   napi_status status;
-
-//   size_t argc = 1;
-//   napi_value id;
-//   napi_value jsthis;
-//   status = napi_get_cb_info(env, info, &argc, &id, &jsthis, nullptr);
-//   assert(status == napi_ok);
-
-
-//   Destructible* obj;
-//   status = napi_unwrap(env, jsthis, reinterpret_cast<void**>(&obj));
-//   assert(status == napi_ok);
-
-//   status = napi_get_value_double(env, id, &obj->id_);
-//   assert(status == napi_ok);
-
-//   return nullptr;
-// }
