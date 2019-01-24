@@ -1,2 +1,5 @@
 test/package-lock.json
 test/node_modules
+
+package-lock.json
+node_modules
